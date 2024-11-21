@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>somme de l anne</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin: 20px;
+        }
+        form {
+            margin: 20px auto;
+            width: 300px;
+        }
+        input, button {
+            margin: 10px 0;
+            padding: 10px;
+            width: 100%;
+        }
+        .result {
+            margin-top: 20px;
+            font-size: 18px;
+            color: #333;
+        }
+    </style>
+</head>
+<body>
+    <h1></h1>somme de l annne</h1>
+    <form id="ageForm">
+        <label for="year">lanne de nesense:</label>
+        <input type="number" id="year" name="year" placeholder="YYYY" required><br>
+
+        <label for="month">moi de nesense:</label>
+        <input type="number" id="month" name="month" placeholder="MM" required><br>
+
+        <label for="day">joure de nesense:</label>
+        <input type="number" id="day" name="day" placeholder="DD" required><br>
+
+        <button type="button" onclick="calculateAge()">احسب العمر</button>
+    </form>
+
+    <div class="result" id="result"></div>
+
+    <script>
+        function calculateAge() {
+            // 
+            const year = parseInt(document.getElementById('year').value);
+            const month = parseInt(document.getElementById('month').value);
+            const day = parseInt(document.getElementById('day').valu
+            //
+            const birthDate = new Date(year, month - 1, day); // الأشهر تبدأ من 0 في JavaScript
+            const currentDate = new Date();
+
+            // 
+            if (birthDate > currentDate) {
+                document.getElementById('result').innerHTML = "<p style='color: red;'>تاريخ الميلاد غير صحيح!</p>";
+                return;
+            }
+
+            //
+            const diff = currentDate - birthDate;
+            const ageDate = new Date(diff); // تحويل الفرق إلى تاريخ
+            const years = ageDate.getUTCFullYear() - 1970; // الحساب يبدأ من 1970
+            const months = currentDate.getMonth() - birthDate.getMonth() + (years * 12);
+            const days = Math.floor(diff / (1000 * 60 * 60 * 24)) % 30;
+
+            // تحديد المرحلة العمرية
+            let ageGroup;
+            if (years < 13) {
+                ageGroup = "طفل";
+            } else if (years >= 13 && years <= 19) {
+                ageGroup = "مراهق";
+            } else if (years >= 20 && years <= 59) {
+                ageGroup = "بالغ";
+            } else {
+                ageGroup = "كبير في السن";
+            }
+
+            // عرض النتيجة
+            document.getElementById('result').innerHTML = `
+                <p>عمرك هو: ${years} سنة و ${months % 12} شهر و ${days} يوم.</p>
+                <p>المرحلة العمرية: <strong>${ageGroup}</strong></p>
+            `;
+        }
+    </script>
+</body>
+</html>
